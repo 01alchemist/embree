@@ -99,6 +99,13 @@
 /// ISA configuration
 ////////////////////////////////////////////////////////////////////////////////
 
+#ifdef EMSCRIPTEN
+  #define __SSE__
+  #define __SSE2__
+  #define __SSE3__
+  #define __SSSE3__
+#endif
+
 #if defined(_MSC_VER) && !defined(__INTEL_COMPILER) && !defined(__clang__)
   #define __SSE__
   #define __SSE2__
