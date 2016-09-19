@@ -5,3 +5,5 @@ x64
 *.ncb
 .*sw?
 .DS_Store
+build
+js_build
