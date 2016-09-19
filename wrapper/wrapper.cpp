@@ -2,7 +2,7 @@
 #include "../include/embree2/rtcore_ray.h"
 
 #include <xmmintrin.h>
-#include <pmmintrin.h>
+// #include <pmmintrin.h>
 
 #include "wrapper.hpp"
 
@@ -33,15 +33,35 @@ void *createMesh(int numTriangles, float *data) {
 
     Vertex *vertices = (Vertex *)rtcMapBuffer(scene, geomID, RTC_VERTEX_BUFFER);
     for (int i = 0; i < numTriangles; i++) {
-        vertices[i*3+0] = Vertex{data[i*9+0], data[i*9+1], data[i*9+2]};
-        vertices[i*3+1] = Vertex{data[i*9+3], data[i*9+4], data[i*9+5]};
-        vertices[i*3+2] = Vertex{data[i*9+6], data[i*9+7], data[i*9+8]};
+        // vertices[i*3+0] = Vertex{data[i*9+0], data[i*9+1], data[i*9+2]};
+        // vertices[i*3+1] = Vertex{data[i*9+3], data[i*9+4], data[i*9+5]};
+        // vertices[i*3+2] = Vertex{data[i*9+6], data[i*9+7], data[i*9+8]};
+
+        Vertex a = vertices[i*3+0];
+        Vertex b = vertices[i*3+1];
+        Vertex c = vertices[i*3+2];
+
+        a.x =  data[i*9+0];
+        a.y =  data[i*9+1];
+        a.z =  data[i*9+2];
+
+        b.x =  data[i*9+3];
+        b.y =  data[i*9+4];
+        b.z =  data[i*9+5];
+
+        c.x =  data[i*9+6];
+        c.y =  data[i*9+7];
+        c.z =  data[i*9+8];
     }
     rtcUnmapBuffer(scene, geomID, RTC_VERTEX_BUFFER);
 
     Triangle *triangles = (Triangle *)rtcMapBuffer(scene, geomID, RTC_INDEX_BUFFER);
     for (int i = 0; i < numTriangles; i++) {
-        triangles[i] = Triangle{i*3+0, i*3+1, i*3+2};
+        // triangles[i] = Triangle{i*3+0, i*3+1, i*3+2};
+        Triangle t = triangles[i];
+        t.v0 = i*3+0;
+        t.v1 = i*3+1;
+        t.v2 = i*3+2;
     }
     rtcUnmapBuffer(scene, geomID, RTC_INDEX_BUFFER);
 
